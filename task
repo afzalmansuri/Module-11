@@ -1,0 +1,15 @@
+create trigger insteadtriggerexample
+on dbo.vEmployee
+instead of update
+as
+Begin
+	declare @employeeId int
+	Select @employeeId = EmployeeId from inserted
+
+ 
+
+  UPDATE vEmployee SET MobileNumber = (select MobileNumber from inserted) where EmployeeId = @employeeId
+
+	 UPDATE vEmployee SET DepartmentName=(select DepartmentName from inserted) where EmployeeId=@employeeId
+	
+End
